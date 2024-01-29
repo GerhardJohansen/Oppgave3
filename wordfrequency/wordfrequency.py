@@ -51,7 +51,7 @@ def lines_to_words(lines):
         wordsInLine = line.split()
 
         for word in wordsInLine:
-            if (word is not ""):
+            if (word != ""):
                 words.append(word)
 
 
