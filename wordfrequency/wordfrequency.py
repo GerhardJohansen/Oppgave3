@@ -46,12 +46,12 @@ def lines_to_words(lines):
     words = list()
 
     for line in lines:
-        line.strip('.,:;?!')
-        line.lower()
+        line = line.strip('.,:;?!')
+        line = line.lower()
         wordsInLine = line.split()
 
         for word in wordsInLine:
-            if (word is not ""):
+            if (word != ""):
                 words.append(word)
 
 
@@ -121,13 +121,12 @@ def find_most_frequent(frequency_table):
     """
     # Tips: se på "dict.items()" funksjonen (https://docs.python.org/3/library/stdtypes.html#dict.items)
     # og kanskje du kan gjenbruke den "largest_pair" metoden som du nettopp har laget
-    mostBiggestPair = frequency_table[0]
+    mostBiggestPair = frequency_table.items()[0]
+    
     for pair in frequency_table:
         mostBiggestPair = largest_pair(mostBiggestPair,pair)
-
     
-    
-    return mostBiggestPair
+    return mostBiggestPair[0]
 
 
 ############################################################
