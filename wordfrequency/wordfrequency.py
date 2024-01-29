@@ -138,7 +138,7 @@ def find_most_frequent(frequency_table):
 
 
 def main():
-    file = str(Path(__file__).parent.absolute()) + "/voluspaa.txt"
+    file = str(Path(__file__).parent.absolute()) + "./../tests/voluspaa.txt"
     lines = read_file(file)
     words = lines_to_words(lines)
     table = compute_frequency(words)
