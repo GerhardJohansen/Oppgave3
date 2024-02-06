@@ -16,16 +16,9 @@ def read_file(file_name):
     Denne funksjonen får et filnavn som argument og skal gi
     tilbake en liste av tekststrenger som representerer linjene i filen.
     """
-    stream = open(file_name, 'r')
+    stream = open(file_name, encoding="utf-8")
+    tekstListe = stream.readlines()
 
-    tekstListe = list()
-
-    while(True):
-        linje = stream.readline()
-        if (linje != ""):
-            tekstListe.append(linje)
-        else:
-            break
 
     # Tips: kanksje "open"-funksjonen kunne være nyttig her: https://docs.python.org/3/library/functions.html#open
     return tekstListe
@@ -43,15 +36,16 @@ def lines_to_words(lines):
 
     F. eks: Inn: ["Det er", "bare", "noen få ord"], Ut: ["Det", "er", "bare", "noen", "få", "ord"]
     """
-    words = list()
+    words = []
+
 
     for line in lines:
-        line.strip('.,:;?!')
-        line.lower()
         wordsInLine = line.split()
 
         for word in wordsInLine:
-            if (word is not ""):
+            word = word.strip(".,:;?!\n ")
+            if (word):
+                word = word.lower()
                 words.append(word)
 
 
@@ -86,13 +80,9 @@ def remove_filler_words(frequency_table):
     som finnes i FILL_WORDS.
     """
 
-    for word in frequency_table:
-        if (word in FILL_WORDS):
-            frequency_table = frequency_table.pop(word)
-
-
-
-
+    for word in FILL_WORDS:
+        if (word in frequency_table):
+            del frequency_table[word]
 
     return frequency_table
 
@@ -121,13 +111,16 @@ def find_most_frequent(frequency_table):
     """
     # Tips: se på "dict.items()" funksjonen (https://docs.python.org/3/library/stdtypes.html#dict.items)
     # og kanskje du kan gjenbruke den "largest_pair" metoden som du nettopp har laget
-    mostBiggestPair = frequency_table[0]
-    for pair in frequency_table:
-        mostBiggestPair = largest_pair(mostBiggestPair,pair)
+    mostBiggestKey = None
+    mostBiggestValue = 0
+
+
+    for key,value in frequency_table.items():
+        mostBiggestKey,mostBiggestValue = largest_pair((mostBiggestKey,mostBiggestValue),(key,value))
 
     
     
-    return mostBiggestPair
+    return mostBiggestKey
 
 
 ############################################################
